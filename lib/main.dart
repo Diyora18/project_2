@@ -1,22 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project_2/core/routing/router.dart';
-import 'package:project_2/feature/onboarding/page/home_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
+import 'core/client/client.dart';
+import 'core/interceptor/interceptor.dart';
+import 'core/routing/router.dart';
+import 'data/repositories/auth_repository.dart';
+import 'data/repositories/password_repository.dart';
+import 'feature/authentication/managers/forgot_password_viewmodel.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const StoreApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class StoreApp extends StatelessWidget {
+  const StoreApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(390, 844),
+      designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp.router(routerConfig: router,),
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            Provider<FlutterSecureStorage>(
+              create: (_) => const FlutterSecureStorage(),
+            ),
+
+            Provider<AuthInterceptor>(
+              create: (context) => AuthInterceptor(
+                secureStorage: context.read<FlutterSecureStorage>(),
+              ),
+            ),
+
+            Provider<ApiClient>(
+              create: (context) =>
+                  ApiClient(interceptor: context.read<AuthInterceptor>()),
+            ),
+
+            Provider<AuthRepository>(
+              create: (context) => AuthRepository(
+                apiClient: context.read<ApiClient>(),
+              ),
+            ),
+
+            Provider<PasswordRepository>(
+              create: (context) => PasswordRepository(
+                apiClient: context.read<ApiClient>(),
+              ),
+            ),
+
+
+            ChangeNotifierProvider<AuthViewModel>(
+              create: (context) => AuthViewModel(
+                resetRepo: context.read<PasswordRepository>(),
+              ),
+            ),
+          ],
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: router,
+          ),
+        );
+      },
     );
   }
 }
