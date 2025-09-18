@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/signup_model.dart';
+import '../../../data/models/auth/signup_model.dart';
 import '../../../data/repositories/auth_repository.dart';
 
 class SignUpViewModel extends ChangeNotifier {

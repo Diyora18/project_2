@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/signup_model.dart';
+import 'package:project_2/data/models/auth/signup_model.dart';
 import 'package:project_2/feature/authentication/managers/create_account_view_model.dart';
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 import 'package:provider/provider.dart';

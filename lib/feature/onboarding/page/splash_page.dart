@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,13 +14,24 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final FlutterSecureStorage _secureStorage= FlutterSecureStorage();
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      context.go("/onboarding-page");
+    _checkAuth();
 
-    });
+    }
+    Future<void> _checkAuth() async{
+    final token = await _secureStorage.read(key: "token");
+
+    await Future.delayed(Duration(seconds: 4));
+
+    if(!mounted) return;
+    if (token!=null && token.isNotEmpty) {
+      context.go("/home-page");
+    } else{
+      context.go("/onboarding-page");
+    }
   }
 
   @override

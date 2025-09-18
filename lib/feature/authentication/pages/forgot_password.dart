@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/reset_password_email.dart';
+import 'package:project_2/data/models/auth/reset_password_email.dart';
 import 'package:project_2/feature/authentication/widgets/reusable_text_form_field.dart';
 import 'package:project_2/feature/authentication/widgets/reusable_title.dart';
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';

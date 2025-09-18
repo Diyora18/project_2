@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project_2/data/repositories/home/category_repository.dart';
+import 'package:project_2/data/repositories/home/product_repository.dart';
 import 'package:provider/provider.dart';
 import 'core/client/client.dart';
 import 'core/interceptor/interceptor.dart';
@@ -30,9 +32,10 @@ class StoreApp extends StatelessWidget {
             ),
 
             Provider<AuthInterceptor>(
-              create: (context) => AuthInterceptor(
-                secureStorage: context.read<FlutterSecureStorage>(),
-              ),
+              create: (context) =>
+                  AuthInterceptor(
+                    secureStorage: context.read<FlutterSecureStorage>(),
+                  ),
             ),
 
             Provider<ApiClient>(
@@ -41,22 +44,29 @@ class StoreApp extends StatelessWidget {
             ),
 
             Provider<AuthRepository>(
-              create: (context) => AuthRepository(
-                apiClient: context.read<ApiClient>(),
-              ),
+              create: (context) =>
+                  AuthRepository(
+                    apiClient: context.read<ApiClient>(),
+                  ),
             ),
 
             Provider<PasswordRepository>(
-              create: (context) => PasswordRepository(
-                apiClient: context.read<ApiClient>(),
-              ),
+              create: (context) =>
+                  PasswordRepository(
+                    apiClient: context.read<ApiClient>(),
+                  ),
             ),
+            Provider(create: (context) =>
+                ProductRepository(apiClient: context.read()),),
+            Provider(create: (context) =>
+                CategoryRepository(apiClient: context.read()),),
 
 
             ChangeNotifierProvider<AuthViewModel>(
-              create: (context) => AuthViewModel(
-                resetRepo: context.read<PasswordRepository>(),
-              ),
+              create: (context) =>
+                  AuthViewModel(
+                    resetRepo: context.read<PasswordRepository>(),
+                  ),
             ),
           ],
           child: MaterialApp.router(

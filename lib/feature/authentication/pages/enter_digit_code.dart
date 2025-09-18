@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/reset_password_verify.dart';
+import 'package:project_2/data/models/auth/reset_password_verify.dart';
 import 'package:project_2/feature/authentication/managers/forgot_password_viewmodel.dart';
 import 'package:project_2/feature/authentication/widgets/otp.dart';
 import 'package:project_2/feature/authentication/widgets/reusable_title.dart';
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/models/reset_password_email.dart';
+import '../../../data/models/auth/reset_password_email.dart';
 
 class EnterCodePage extends StatelessWidget {
   const EnterCodePage({super.key});

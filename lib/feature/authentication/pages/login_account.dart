@@ -8,7 +8,7 @@ import 'package:project_2/feature/authentication/widgets/reusable_title.dart';
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/models/login_model.dart';
+import '../../../data/models/auth/login_model.dart';
 import '../../../data/repositories/auth_repository.dart';
 
 class LoginAccountPage extends StatefulWidget {
@@ -104,7 +104,7 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context.push("/forgot-password-page");
+                        context.push("/home-page");
                       },
                       child: Text(
                         "Reset your password",
@@ -140,7 +140,7 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
                         await value.login(model);
 
                         if (value.success) {
-                          context.push("/forgot-password-page");
+                          context.push("/home-page");
                         } else if (value.error != null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(value.error!)),
