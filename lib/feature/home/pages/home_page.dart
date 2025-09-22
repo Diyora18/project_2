@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
 import 'package:project_2/data/models/home/category_model.dart';
 import 'package:project_2/data/repositories/home/category_repository.dart';
 import 'package:project_2/data/repositories/home/product_repository.dart';
+import 'package:project_2/feature/common/reusable_bottom_navigation.dart';
 import 'package:project_2/feature/home/managers/category_cubit.dart';
 import 'package:project_2/feature/home/managers/category_state.dart';
 import 'package:project_2/feature/home/managers/product_cubit.dart';
@@ -46,7 +48,11 @@ class HomePage extends StatelessWidget {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 25),
-              child: SvgPicture.asset("assets/Bell.svg"),
+              child: GestureDetector(
+                onTap: (){
+                  context.go("/notification-page");
+                },
+                  child: SvgPicture.asset("assets/Bell.svg")),
             ),
           ],
         ),
@@ -135,7 +141,9 @@ class HomePage extends StatelessWidget {
 
                               onTap: () {
                                 if (category.id == 0) {
-                                  context.read<ProductCubit>().fetchAllProducts();
+                                  context
+                                      .read<ProductCubit>()
+                                      .fetchAllProducts();
                                 } else {
                                   context.read<ProductCubit>().fetchProducts(
                                     category.id,
@@ -194,6 +202,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+        bottomNavigationBar: ReusableBottomNavigation(isActive: 0),
       ),
     );
   }

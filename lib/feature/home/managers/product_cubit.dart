@@ -70,7 +70,7 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Future<void> unsaveProduct(int productId) async {
-    final result = await _productRepository.unSaveproduct(productId);
+    final result = await _productRepository.unSaveProduct(productId);
 
     result.fold(
           (e) => emit(state.copyWith(errorMessage: e.toString())),

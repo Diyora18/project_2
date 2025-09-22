@@ -20,7 +20,8 @@ class ProductItem extends StatelessWidget {
     required this.title,
     required this.price,
     this.discount,
-    required this.id, required this.isLiked,
+    required this.id,
+    required this.isLiked,
   });
 
   @override
@@ -34,7 +35,7 @@ class ProductItem extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 174.h,
+                height: 122.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
@@ -44,6 +45,8 @@ class ProductItem extends StatelessWidget {
                   child: Image.network(
                     image,
                     fit: BoxFit.cover,
+                    width: 161.w,
+                    height: 122.h,
                   ),
                 ),
               ),

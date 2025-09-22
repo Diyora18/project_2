@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/auth/login_model.dart';
 import '../../../data/models/auth/signup_model.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/authentication/auth_repository.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final AuthRepository _loginRepo;

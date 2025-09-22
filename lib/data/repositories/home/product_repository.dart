@@ -51,7 +51,7 @@ class ProductRepository {
     );
   }
 
-  Future<Result> unSaveproduct(int productId) async {
+  Future<Result> unSaveProduct(int productId) async {
     return await _apiClient.post("/auth/unsave/$productId", data: {});
   }
 }

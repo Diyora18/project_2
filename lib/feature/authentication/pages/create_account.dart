@@ -8,7 +8,7 @@ import 'package:project_2/feature/authentication/managers/create_account_view_mo
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/authentication/auth_repository.dart';
 import '../widgets/reusable_text_form_field.dart';
 import '../widgets/reusable_title.dart';
 

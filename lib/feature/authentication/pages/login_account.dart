@@ -9,7 +9,7 @@ import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/auth/login_model.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/authentication/auth_repository.dart';
 
 class LoginAccountPage extends StatefulWidget {
   const LoginAccountPage({super.key});

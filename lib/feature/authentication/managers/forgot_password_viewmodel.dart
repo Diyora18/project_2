@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../data/models/auth/reset_password_email.dart';
 import '../../../data/models/auth/reset_password_reset.model.dart';
 import '../../../data/models/auth/reset_password_verify.dart';
-import '../../../data/repositories/password_repository.dart';
+import '../../../data/repositories/authentication/password_repository.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final PasswordRepository _resetRepo;

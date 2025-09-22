@@ -1,10 +1,10 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../core/client/client.dart';
-import '../../core/result.dart';
-import '../models/auth/reset_password_email.dart';
-import '../models/auth/reset_password_reset.model.dart';
-import '../models/auth/reset_password_verify.dart';
+import '../../../core/client/client.dart';
+import '../../../core/result.dart';
+import '../../models/auth/reset_password_email.dart';
+import '../../models/auth/reset_password_reset.model.dart';
+import '../../models/auth/reset_password_verify.dart';
 
 class PasswordRepository {
   final ApiClient apiClient;
