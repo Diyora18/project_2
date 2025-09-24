@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/home/product_model.dart';
+import 'package:project_2/data/models/product_model.dart';
 import 'package:project_2/feature/common/reusable_app_bar.dart';
 import 'package:project_2/feature/common/reusable_bottom_navigation.dart';
 
@@ -27,15 +27,12 @@ class SavedPage extends StatelessWidget {
             if (state.loading) {
               return const Center(child: CircularProgressIndicator());
             }
-
             if (state.errorMessage != null) {
               return Center(child: Text("Xato: ${state.errorMessage}"));
             }
-
             if (state.savedProduct.isEmpty) {
               return const Center(child: NoSavedWidgets());
             }
-
             return GridView.builder(
               padding: EdgeInsets.only(left: 24, right: 24, top: 30),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -48,11 +45,17 @@ class SavedPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final ProductModel product = state.savedProduct[index];
                 return ProductItem(
+                  width: 161,
+                  height: 174,
+                  imageHeight: 122,
                   image: product.image ,
                   title: product.title,
                   price: product.price,
                   id: product.id,
                   isLiked: true,
+                  onUnSave: (){
+                    context.read<SavedCubit>().removeFromSaved(product.id);
+                  },
                 );
               },
             );

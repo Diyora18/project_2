@@ -1,7 +1,7 @@
 import 'package:project_2/core/client/client.dart';
 import 'package:project_2/core/result.dart';
 
-import '../../models/home/category_model.dart';
+import '../models/category_model.dart';
 
 class CategoryRepository {
   final ApiClient _apiClient;

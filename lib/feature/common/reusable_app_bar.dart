@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
 
 class ReusableAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,10 +14,16 @@ class ReusableAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColors.white,
       leadingWidth: 100,
       leading: Center(
-        child: SvgPicture.asset(
-          "assets/back_arrow.svg",
+        child: GestureDetector(
+          onTap: (){
+            context.pop();
+          },
+          child: SvgPicture.asset(
+            "assets/back_arrow.svg",
+          ),
         ),
       ),
       centerTitle: true,
@@ -32,7 +39,11 @@ class ReusableAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 25),
-          child: SvgPicture.asset("assets/Bell.svg"),
+          child: GestureDetector(
+              onTap: () {
+                context.push("/notification-page");
+              },
+              child: SvgPicture.asset("assets/Bell.svg")),
         ),
       ],
     );

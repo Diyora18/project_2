@@ -3,16 +3,17 @@ import 'package:project_2/feature/authentication/pages/enter_digit_code.dart';
 import 'package:project_2/feature/authentication/pages/forgot_password.dart';
 import 'package:project_2/feature/authentication/pages/login_account.dart';
 import 'package:project_2/feature/authentication/pages/reset_password.dart';
-import 'package:project_2/feature/home/pages/account_page.dart';
-import 'package:project_2/feature/home/pages/cart_page.dart';
+import 'package:project_2/feature/account_page.dart';
+import 'package:project_2/feature/cart_page.dart';
+import 'package:project_2/feature/details/pages/detail_page.dart';
 import 'package:project_2/feature/home/pages/home_page.dart';
-import 'package:project_2/feature/home/pages/notification_page.dart';
+import 'package:project_2/feature/notification/pages/notification_page.dart';
 import 'package:project_2/feature/onboarding/page/splash_page.dart';
 import 'package:project_2/feature/onboarding/page/onboarding_page.dart';
 
 import '../../feature/authentication/pages/create_account.dart';
 import '../../feature/saved/pages/saved_page.dart';
-import '../../feature/home/pages/search_page.dart';
+import '../../feature/search/pages/search_page.dart';
 
 final router = GoRouter(
   initialLocation: "/splash-page",
@@ -69,5 +70,9 @@ final router = GoRouter(
       path: "/notification-page",
       builder: (context, state) => NotificationPage(),
     ),
+    GoRoute(path: "/detail-page/:id", builder: (context, state) {
+      final productId = int.tryParse(state.pathParameters['id'] ?? '0') ?? 0;
+      return DetailPage(productId: productId);
+    })
   ],
 );

@@ -14,6 +14,13 @@ class ProductItem extends StatelessWidget {
   final num? discount;
   final bool isLiked;
 
+  final VoidCallback? onLikeTap;
+  final VoidCallback? onUnSave;
+
+  final double width;
+  final double height;
+  final double imageHeight;
+
   const ProductItem({
     super.key,
     required this.image,
@@ -22,105 +29,113 @@ class ProductItem extends StatelessWidget {
     this.discount,
     required this.id,
     required this.isLiked,
+    this.onLikeTap,
+    this.onUnSave,
+    this.width = 161,
+    this.height = 224,
+    this.imageHeight = 174,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 161.w,
-      height: 224.h,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 122.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                    width: 161.w,
-                    height: 122.h,
+    return GestureDetector(
+      onTap: (){
+        context.push("/detail-page/$id");
+      },
+      child: SizedBox(
+        width: width.w,
+        height: height.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: imageHeight.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: GestureDetector(
-                  onTap: () {
-                    if (isLiked) {
-                      context.read<ProductCubit>().unsaveProduct(id);
-                    } else {
-                      context.read<ProductCubit>().saveProduct(id);
-                    }
-                  },
-                  child: Container(
-                    width: 36.w,
-                    height: 36.h,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.white,
-                    ),
-                    child: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: isLiked ? Colors.red : AppColors.black,
-                      size: 20,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      image,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              fontFamily: "GeneralSans",
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: () {
+                     if (onUnSave!=null) {
+                       onUnSave!();
+                     } else if (onLikeTap!=null) {
+                       onLikeTap!();
+                     }
+                    },
+                    child: Container(
+                      width: 36.w,
+                      height: 36.h,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.white,
+                      ),
+                      child: Icon(
+                        isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: isLiked ? Colors.red : AppColors.black,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          SizedBox(
-            height: 4,
-          ),
-          Row(
-            children: [
-              Text(
-                "\$$price",
-                style: TextStyle(
-                  color: AppColors.grey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                ),
+
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                fontFamily: "GeneralSans",
               ),
-              SizedBox(
-                width: 6,
-              ),
-              if (discount != null && discount! > 0)
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Row(
+              children: [
                 Text(
-                  "-${discount!}%",
+                  "\$$price",
                   style: TextStyle(
-                    fontSize: 12,
+                    color: AppColors.grey,
                     fontWeight: FontWeight.w500,
-                    color: Colors.red,
+                    fontSize: 12,
                   ),
                 ),
-            ],
-          ),
-        ],
+                SizedBox(
+                  width: 6,
+                ),
+                if (discount != null && discount! > 0)
+                  Text(
+                    "-${discount!}%",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red,
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

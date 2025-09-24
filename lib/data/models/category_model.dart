@@ -1,4 +1,4 @@
-import 'package:project_2/data/models/home/product_model.dart';
+import 'package:project_2/data/models/product_model.dart';
 
 class CategoryModel {
   final int id;

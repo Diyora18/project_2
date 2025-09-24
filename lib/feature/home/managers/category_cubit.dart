@@ -2,7 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/repositories/home/category_repository.dart';
+import '../../../data/repositories/category_repository.dart';
 import 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {

@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/home/category_model.dart';
-import 'package:project_2/data/repositories/home/category_repository.dart';
-import 'package:project_2/data/repositories/home/product_repository.dart';
+import 'package:project_2/data/models/category_model.dart';
+import 'package:project_2/data/repositories/category_repository.dart';
+import 'package:project_2/data/repositories/product_repository.dart';
 import 'package:project_2/feature/common/reusable_bottom_navigation.dart';
 import 'package:project_2/feature/home/managers/category_cubit.dart';
 import 'package:project_2/feature/home/managers/category_state.dart';
@@ -49,10 +49,11 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 25),
               child: GestureDetector(
-                onTap: (){
-                  context.go("/notification-page");
+                onTap: () {
+                  context.push("/notification-page");
                 },
-                  child: SvgPicture.asset("assets/Bell.svg")),
+                child: SvgPicture.asset("assets/Bell.svg"),
+              ),
             ),
           ],
         ),
@@ -83,6 +84,10 @@ class HomePage extends StatelessWidget {
                             color: AppColors.hintColor,
                             width: 2,
                           ),
+                        ),
+                        suffixIcon: SvgPicture.asset(
+                          "assets/Mic.svg",
+                          fit: BoxFit.scaleDown,
                         ),
                       ),
                     ),
@@ -187,6 +192,13 @@ class HomePage extends StatelessWidget {
                           title: product.title,
                           price: product.price,
                           discount: product.discount,
+                          onLikeTap: (){
+                            if (product.isLiked) {
+                              context.read<ProductCubit>().unsaveProduct(product.id);
+                            }else {
+                              context.read<ProductCubit>().saveProduct(product.id);
+                            }
+                          },
                         );
                       },
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

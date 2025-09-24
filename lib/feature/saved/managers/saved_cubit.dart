@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_2/feature/saved/managers/saved_state.dart';
+import '../../../data/repositories/product_repository.dart';
 
-import '../../../data/repositories/home/product_repository.dart';
+
 
 class SavedCubit extends Cubit<SavedState> {
   SavedCubit({
@@ -16,7 +17,7 @@ class SavedCubit extends Cubit<SavedState> {
   Future<void> fetchSavedProduct() async {
     emit(state.copyWith(loading: true, errorMessage: null));
 
-    final result = await _savedProductRepo.getAllProducts();
+    final result = await _savedProductRepo.getSavedProduct();
 
     result.fold(
           (failure) => emit(

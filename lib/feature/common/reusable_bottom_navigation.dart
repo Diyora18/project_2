@@ -39,7 +39,7 @@ class _ReusableBottomNavigationState extends State<ReusableBottomNavigation> {
         setState(() {
           _currentIndex = index;
         });
-        context.go(_routes[index]);
+        context.push(_routes[index]);
       },
       type: BottomNavigationBarType.fixed,
       backgroundColor: AppColors.white,

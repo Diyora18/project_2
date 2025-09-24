@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/data/models/home/category_model.dart';
+import 'package:project_2/data/models/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel category;
