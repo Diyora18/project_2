@@ -59,39 +59,117 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
         body: Form(
           onChanged: _validateForm,
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ReusableTitle(
-                firstText: "Login to your account",
-                secondText: "It’s great to see you again.",
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              ReusableTextFormField(
-                labelText: "Email",
-                hintText: "Enter your email address",
-                controller: emailController,
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              ReusableTextFormField(
-                labelText: "Password",
-                hintText: "Enter your password",
-                controller: passwordController,
-                isPassword: true,
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ReusableTitle(
+                  firstText: "Login to your account",
+                  secondText: "It’s great to see you again.",
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                ReusableTextFormField(
+                  labelText: "Email",
+                  hintText: "Enter your email address",
+                  controller: emailController,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                ReusableTextFormField(
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  controller: passwordController,
+                  isPassword: true,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Forgot your password?",
+                        style: TextStyle(
+                          color: AppColors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "GeneralSans",
+                        ),
+                      ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          context.push("/reset-password-page");
+                        },
+                        child: Text(
+                          "Reset your password",
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "GeneralSans",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Consumer<LoginViewModel>(
+                  builder: (context, value, child) {
+                    return ReusableTextButton(
+                      text: value.isLoading ? "Loading...." : "Login",
+                      background: isFormValid
+                          ? AppColors.black
+                          : AppColors.grey2,
+                      onPressed: isFormValid && !value.isLoading
+                          ? () async {
+                        if (_formKey.currentState!.validate()) {
+                          final model = LoginModel(
+                  
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                          await value.login(model);
+                  
+                          if (value.success) {
+                            context.push("/home-page");
+                          } else if (value.error != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(value.error!)),
+                            );
+                          }
+                        }
+                      }
+                          : null,
+                      textColor: Colors.white,
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Container(
+                      height: 2.h,
+                      width: 154.w,
+                      decoration: BoxDecoration(color: AppColors.border),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     Text(
-                      "Forgot your password?",
+                      "Or",
                       style: TextStyle(
                         color: AppColors.grey,
                         fontSize: 14,
@@ -100,144 +178,68 @@ class _LoginAccountPageState extends State<LoginAccountPage> {
                       ),
                     ),
                     SizedBox(
-                      width: 2.w,
+                      width: 8.w,
+                    ),
+                    Container(
+                      height: 2.h,
+                      width: 154.w,
+                      decoration: BoxDecoration(color: AppColors.border),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                ReusableTextButton(
+                  text: "Sign Up With Google",
+                  background: Colors.white,
+                  onPressed: () {},
+                  textColor: AppColors.black,
+                  leftIcon: "assets/google.svg",
+                  borderColor: AppColors.border,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                ReusableTextButton(
+                  text: "Sign Up With Facebook",
+                  background: AppColors.blue,
+                  onPressed: () {},
+                  textColor: Colors.white,
+                  leftIcon: "assets/logos_facebook.svg",
+                ),
+                SizedBox(
+                  height: 140.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "GeneralSans",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 2,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        context.push("/home-page");
-                      },
+                      onTap: () {},
                       child: Text(
-                        "Reset your password",
+                        "Join",
                         style: TextStyle(
                           color: AppColors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
                           fontFamily: "GeneralSans",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              Consumer<LoginViewModel>(
-                builder: (context, value, child) {
-                  return ReusableTextButton(
-                    text: value.isLoading ? "Loading...." : "Login",
-                    background: isFormValid
-                        ? AppColors.black
-                        : AppColors.grey2,
-                    onPressed: isFormValid && !value.isLoading
-                        ? () async {
-                      if (_formKey.currentState!.validate()) {
-                        final model = LoginModel(
-
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        await value.login(model);
-
-                        if (value.success) {
-                          context.push("/home-page");
-                        } else if (value.error != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(value.error!)),
-                          );
-                        }
-                      }
-                    }
-                        : null,
-                    textColor: Colors.white,
-                  );
-                },
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 2.h,
-                    width: 154.w,
-                    decoration: BoxDecoration(color: AppColors.border),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Text(
-                    "Or",
-                    style: TextStyle(
-                      color: AppColors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "GeneralSans",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Container(
-                    height: 2.h,
-                    width: 154.w,
-                    decoration: BoxDecoration(color: AppColors.border),
-                  ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              ReusableTextButton(
-                text: "Sign Up With Google",
-                background: Colors.white,
-                onPressed: () {},
-                textColor: AppColors.black,
-                leftIcon: "assets/google.svg",
-                borderColor: AppColors.border,
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              ReusableTextButton(
-                text: "Sign Up With Facebook",
-                background: AppColors.blue,
-                onPressed: () {},
-                textColor: Colors.white,
-                leftIcon: "assets/logos_facebook.svg",
-              ),
-              SizedBox(
-                height: 140.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                      color: AppColors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "GeneralSans",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      "Join",
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontFamily: "GeneralSans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

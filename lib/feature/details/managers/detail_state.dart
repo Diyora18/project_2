@@ -3,6 +3,7 @@ import '../../../data/models/detail_model.dart';
 import '../../../data/models/reviews_model.dart';
 
 part 'detail_state.freezed.dart';
+
 @freezed
 abstract class DetailState with _$DetailState {
   const factory DetailState({
@@ -13,6 +14,7 @@ abstract class DetailState with _$DetailState {
     required DetailModel detail,
     required List<ReviewModel> reviews,
     ProductSizes? selectedSize,
+    bool? cartSuccess,
   }) = _DetailState;
 
   factory DetailState.initial() => DetailState(
@@ -33,5 +35,7 @@ abstract class DetailState with _$DetailState {
     ),
     reviews: [],
     selectedSize: null,
+    cartSuccess: null,
   );
+
 }

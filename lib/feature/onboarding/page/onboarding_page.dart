@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_2/feature/onboarding/widgets/reusable_text_button.dart';
 
+import '../../../core/utils/app_colors.dart';
 import '../widgets/onboarding_painter.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -11,6 +12,7 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: Padding(
         padding: const EdgeInsets.only(top: 60, left: 24),
         child: Stack(

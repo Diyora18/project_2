@@ -45,8 +45,9 @@ class ProductRepository {
   }
 
   Future<Result<List<ProductModel>>> getSavedProduct() async {
-    final result = await _apiClient.get("/products/saved-products");
 
+
+    final result = await _apiClient.get("/products/saved-products");
     return result.fold(
           (err) => Result.error(err),
           (data) {

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:project_2/data/repositories/cart_repository.dart';
 import 'package:project_2/data/repositories/category_repository.dart';
 import 'package:project_2/data/repositories/detail_repository.dart';
 import 'package:project_2/data/repositories/notification_repository.dart';
 import 'package:project_2/data/repositories/product_repository.dart';
 import 'package:project_2/data/repositories/review_repository.dart';
+import 'package:project_2/feature/home/managers/category_cubit.dart';
+import 'package:project_2/feature/home/managers/product_bloc.dart';
+import 'package:project_2/feature/home/managers/product_event.dart';
 import 'package:provider/provider.dart';
 import 'core/client/client.dart';
 import 'core/interceptor/interceptor.dart';
@@ -14,7 +21,9 @@ import 'data/repositories/auth_repository.dart';
 import 'data/repositories/password_repository.dart';
 import 'feature/authentication/managers/forgot_password_viewmodel.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>('recent_search');
   runApp(const StoreApp());
 }
 
@@ -33,7 +42,6 @@ class StoreApp extends StatelessWidget {
             Provider<FlutterSecureStorage>(
               create: (_) => const FlutterSecureStorage(),
             ),
-
             Provider<AuthInterceptor>(
               create: (context) => AuthInterceptor(
                 secureStorage: context.read<FlutterSecureStorage>(),
@@ -73,6 +81,9 @@ class StoreApp extends StatelessWidget {
             Provider(
               create: (context) => ReviewRepository(apiClient: context.read()),
             ),
+            Provider(
+              create: (context) => CartRepository(apiClient: context.read()),
+            ),
 
             ChangeNotifierProvider<AuthViewModel>(
               create: (context) => AuthViewModel(
@@ -80,9 +91,27 @@ class StoreApp extends StatelessWidget {
               ),
             ),
           ],
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            routerConfig: router,
+          child: Builder(
+            builder: (context) {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) =>
+                        ProductBloc(productRepo: context.read())
+                          ..add(FetchAllProducts()),
+                  ),
+                  BlocProvider(
+                    create: (context) =>
+                        CategoryCubit(categoryRepo: context.read())
+                          ..fetchCategories(),
+                  ),
+                ],
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: router,
+                ),
+              );
+            },
           ),
         );
       },

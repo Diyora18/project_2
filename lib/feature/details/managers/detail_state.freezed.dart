@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DetailState {
 
- String? get errorMessage; String? get errorReviews; bool get loading; bool get revLoading; DetailModel get detail; List<ReviewModel> get reviews; ProductSizes? get selectedSize;
+ String? get errorMessage; String? get errorReviews; bool get loading; bool get revLoading; DetailModel get detail; List<ReviewModel> get reviews; ProductSizes? get selectedSize; bool? get cartSuccess;
 /// Create a copy of DetailState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $DetailStateCopyWith<DetailState> get copyWith => _$DetailStateCopyWithImpl<Deta
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DetailState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.errorReviews, errorReviews) || other.errorReviews == errorReviews)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.revLoading, revLoading) || other.revLoading == revLoading)&&(identical(other.detail, detail) || other.detail == detail)&&const DeepCollectionEquality().equals(other.reviews, reviews)&&(identical(other.selectedSize, selectedSize) || other.selectedSize == selectedSize));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DetailState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.errorReviews, errorReviews) || other.errorReviews == errorReviews)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.revLoading, revLoading) || other.revLoading == revLoading)&&(identical(other.detail, detail) || other.detail == detail)&&const DeepCollectionEquality().equals(other.reviews, reviews)&&(identical(other.selectedSize, selectedSize) || other.selectedSize == selectedSize)&&(identical(other.cartSuccess, cartSuccess) || other.cartSuccess == cartSuccess));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorMessage,errorReviews,loading,revLoading,detail,const DeepCollectionEquality().hash(reviews),selectedSize);
+int get hashCode => Object.hash(runtimeType,errorMessage,errorReviews,loading,revLoading,detail,const DeepCollectionEquality().hash(reviews),selectedSize,cartSuccess);
 
 @override
 String toString() {
-  return 'DetailState(errorMessage: $errorMessage, errorReviews: $errorReviews, loading: $loading, revLoading: $revLoading, detail: $detail, reviews: $reviews, selectedSize: $selectedSize)';
+  return 'DetailState(errorMessage: $errorMessage, errorReviews: $errorReviews, loading: $loading, revLoading: $revLoading, detail: $detail, reviews: $reviews, selectedSize: $selectedSize, cartSuccess: $cartSuccess)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $DetailStateCopyWith<$Res>  {
   factory $DetailStateCopyWith(DetailState value, $Res Function(DetailState) _then) = _$DetailStateCopyWithImpl;
 @useResult
 $Res call({
- String? errorMessage, String? errorReviews, bool loading, bool revLoading, DetailModel detail, List<ReviewModel> reviews, ProductSizes? selectedSize
+ String? errorMessage, String? errorReviews, bool loading, bool revLoading, DetailModel detail, List<ReviewModel> reviews, ProductSizes? selectedSize, bool? cartSuccess
 });
 
 
@@ -62,7 +62,7 @@ class _$DetailStateCopyWithImpl<$Res>
 
 /// Create a copy of DetailState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? errorMessage = freezed,Object? errorReviews = freezed,Object? loading = null,Object? revLoading = null,Object? detail = null,Object? reviews = null,Object? selectedSize = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? errorMessage = freezed,Object? errorReviews = freezed,Object? loading = null,Object? revLoading = null,Object? detail = null,Object? reviews = null,Object? selectedSize = freezed,Object? cartSuccess = freezed,}) {
   return _then(_self.copyWith(
 errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,errorReviews: freezed == errorReviews ? _self.errorReviews : errorReviews // ignore: cast_nullable_to_non_nullable
@@ -71,7 +71,8 @@ as bool,revLoading: null == revLoading ? _self.revLoading : revLoading // ignore
 as bool,detail: null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
 as DetailModel,reviews: null == reviews ? _self.reviews : reviews // ignore: cast_nullable_to_non_nullable
 as List<ReviewModel>,selectedSize: freezed == selectedSize ? _self.selectedSize : selectedSize // ignore: cast_nullable_to_non_nullable
-as ProductSizes?,
+as ProductSizes?,cartSuccess: freezed == cartSuccess ? _self.cartSuccess : cartSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize,  bool? cartSuccess)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DetailState() when $default != null:
-return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize);case _:
+return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize,_that.cartSuccess);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize,  bool? cartSuccess)  $default,) {final _that = this;
 switch (_that) {
 case _DetailState():
-return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize);case _:
+return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize,_that.cartSuccess);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? errorMessage,  String? errorReviews,  bool loading,  bool revLoading,  DetailModel detail,  List<ReviewModel> reviews,  ProductSizes? selectedSize,  bool? cartSuccess)?  $default,) {final _that = this;
 switch (_that) {
 case _DetailState() when $default != null:
-return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize);case _:
+return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoading,_that.detail,_that.reviews,_that.selectedSize,_that.cartSuccess);case _:
   return null;
 
 }
@@ -212,7 +213,7 @@ return $default(_that.errorMessage,_that.errorReviews,_that.loading,_that.revLoa
 
 
 class _DetailState implements DetailState {
-  const _DetailState({this.errorMessage, this.errorReviews, required this.loading, required this.revLoading, required this.detail, required final  List<ReviewModel> reviews, this.selectedSize}): _reviews = reviews;
+  const _DetailState({this.errorMessage, this.errorReviews, required this.loading, required this.revLoading, required this.detail, required final  List<ReviewModel> reviews, this.selectedSize, this.cartSuccess}): _reviews = reviews;
   
 
 @override final  String? errorMessage;
@@ -228,6 +229,7 @@ class _DetailState implements DetailState {
 }
 
 @override final  ProductSizes? selectedSize;
+@override final  bool? cartSuccess;
 
 /// Create a copy of DetailState
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +241,16 @@ _$DetailStateCopyWith<_DetailState> get copyWith => __$DetailStateCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DetailState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.errorReviews, errorReviews) || other.errorReviews == errorReviews)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.revLoading, revLoading) || other.revLoading == revLoading)&&(identical(other.detail, detail) || other.detail == detail)&&const DeepCollectionEquality().equals(other._reviews, _reviews)&&(identical(other.selectedSize, selectedSize) || other.selectedSize == selectedSize));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DetailState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.errorReviews, errorReviews) || other.errorReviews == errorReviews)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.revLoading, revLoading) || other.revLoading == revLoading)&&(identical(other.detail, detail) || other.detail == detail)&&const DeepCollectionEquality().equals(other._reviews, _reviews)&&(identical(other.selectedSize, selectedSize) || other.selectedSize == selectedSize)&&(identical(other.cartSuccess, cartSuccess) || other.cartSuccess == cartSuccess));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorMessage,errorReviews,loading,revLoading,detail,const DeepCollectionEquality().hash(_reviews),selectedSize);
+int get hashCode => Object.hash(runtimeType,errorMessage,errorReviews,loading,revLoading,detail,const DeepCollectionEquality().hash(_reviews),selectedSize,cartSuccess);
 
 @override
 String toString() {
-  return 'DetailState(errorMessage: $errorMessage, errorReviews: $errorReviews, loading: $loading, revLoading: $revLoading, detail: $detail, reviews: $reviews, selectedSize: $selectedSize)';
+  return 'DetailState(errorMessage: $errorMessage, errorReviews: $errorReviews, loading: $loading, revLoading: $revLoading, detail: $detail, reviews: $reviews, selectedSize: $selectedSize, cartSuccess: $cartSuccess)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$DetailStateCopyWith<$Res> implements $DetailStateCopyWith
   factory _$DetailStateCopyWith(_DetailState value, $Res Function(_DetailState) _then) = __$DetailStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? errorMessage, String? errorReviews, bool loading, bool revLoading, DetailModel detail, List<ReviewModel> reviews, ProductSizes? selectedSize
+ String? errorMessage, String? errorReviews, bool loading, bool revLoading, DetailModel detail, List<ReviewModel> reviews, ProductSizes? selectedSize, bool? cartSuccess
 });
 
 
@@ -276,7 +278,7 @@ class __$DetailStateCopyWithImpl<$Res>
 
 /// Create a copy of DetailState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? errorMessage = freezed,Object? errorReviews = freezed,Object? loading = null,Object? revLoading = null,Object? detail = null,Object? reviews = null,Object? selectedSize = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? errorMessage = freezed,Object? errorReviews = freezed,Object? loading = null,Object? revLoading = null,Object? detail = null,Object? reviews = null,Object? selectedSize = freezed,Object? cartSuccess = freezed,}) {
   return _then(_DetailState(
 errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,errorReviews: freezed == errorReviews ? _self.errorReviews : errorReviews // ignore: cast_nullable_to_non_nullable
@@ -285,7 +287,8 @@ as bool,revLoading: null == revLoading ? _self.revLoading : revLoading // ignore
 as bool,detail: null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
 as DetailModel,reviews: null == reviews ? _self._reviews : reviews // ignore: cast_nullable_to_non_nullable
 as List<ReviewModel>,selectedSize: freezed == selectedSize ? _self.selectedSize : selectedSize // ignore: cast_nullable_to_non_nullable
-as ProductSizes?,
+as ProductSizes?,cartSuccess: freezed == cartSuccess ? _self.cartSuccess : cartSuccess // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 

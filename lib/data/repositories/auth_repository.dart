@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_2/data/models/auth/signup_model.dart';
 import '../../core/client/client.dart';
 import '../../core/result.dart';
@@ -50,5 +50,10 @@ class AuthRepository {
         return Result.error(Exception("Xato javob formati"));
       },
     );
+  }
+  Future<void> logout() async {
+    await _secureStorage.delete(key: "token");
+    await _secureStorage.delete(key: "login");
+    await _secureStorage.delete(key: "password");
   }
 }

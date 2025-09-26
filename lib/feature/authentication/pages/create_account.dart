@@ -62,180 +62,182 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         body: Form(
           key: _formKey,
           onChanged: _validateForm,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ReusableTitle(
-                firstText: 'Create an Account',
-                secondText: "Let's create an account",
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              ReusableTextFormField(
-                labelText: 'Full Name',
-                hintText: 'Enter your full name',
-                controller: nameController,
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              ReusableTextFormField(
-                labelText: "Email",
-                hintText: "Enter your email address",
-                controller: emailController,
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              ReusableTextFormField(
-                labelText: "Password",
-                hintText: "Enter your password",
-                controller: passwordController,
-                isPassword: true,
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              SizedBox(
-                width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    "By signing up you agree to our Terms, Privacy Policy, and Cookie Use",
-                    style: TextStyle(
-                      color: AppColors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                    ),
-                    maxLines: 2,
-                  ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ReusableTitle(
+                  firstText: 'Create an Account',
+                  secondText: "Let's create an account",
                 ),
-              ),
-              SizedBox(
-                height: 24.h,
-              ),
-              Consumer<SignUpViewModel>(
-                builder: (context, value, child) {
-                  return ReusableTextButton(
-                    text: value.isLoading ? "Loading..." : "Create an Account",
-                    background: isFormValid
-                        ? AppColors.black
-                        : AppColors.border,
-                    onPressed: isFormValid && !value.isLoading
-                        ? () async {
-                            if (_formKey.currentState!.validate()) {
-                              final model = SignUpModel(
-                                fullName: nameController.text,
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                              await value.register(model);
-
-                              if (value.success) {
-                                context.push("/login-account-page");
-                              } else if (value.error != null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(value.error!)),
-                                );
-                              }
-                            }
-                          }
-                        : null,
-
-                    textColor: AppColors.white,
-                    borderColor: isFormValid ? null : AppColors.black,
-                  );
-                },
-              ),
-
-              SizedBox(
-                height: 24.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 2.h,
-                    width: 154.w,
-                    decoration: BoxDecoration(color: AppColors.border),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Text(
-                    "Or",
-                    style: TextStyle(
-                      color: AppColors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "GeneralSans",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.w,
-                  ),
-                  Container(
-                    height: 2.h,
-                    width: 154.w,
-                    decoration: BoxDecoration(color: AppColors.border),
-                  ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-              ReusableTextButton(
-                text: "Sign Up With Google",
-                background: Colors.white,
-                onPressed: () {},
-                textColor: AppColors.black,
-                leftIcon: "assets/google.svg",
-                borderColor: AppColors.border,
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              ReusableTextButton(
-                text: "Sign Up With Facebook",
-                background: AppColors.blue,
-                onPressed: () {},
-                textColor: Colors.white,
-                leftIcon: "assets/logos_facebook.svg",
-              ),
-              SizedBox(
-                height: 48.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                      color: AppColors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "GeneralSans",
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.push("/login-account-page");
-                    },
+                SizedBox(
+                  height: 24.h,
+                ),
+                ReusableTextFormField(
+                  labelText: 'Full Name',
+                  hintText: 'Enter your full name',
+                  controller: nameController,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                ReusableTextFormField(
+                  labelText: "Email",
+                  hintText: "Enter your email address",
+                  controller: emailController,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                ReusableTextFormField(
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  controller: passwordController,
+                  isPassword: true,
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                SizedBox(
+                  width: 350,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      "Log In",
+                      "By signing up you agree to our Terms, Privacy Policy, and Cookie Use",
                       style: TextStyle(
                         color: AppColors.black,
-                        fontFamily: "GeneralSans",
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
+                      maxLines: 2,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Consumer<SignUpViewModel>(
+                  builder: (context, value, child) {
+                    return ReusableTextButton(
+                      text: value.isLoading ? "Loading..." : "Create an Account",
+                      background: isFormValid
+                          ? AppColors.black
+                          : AppColors.border,
+                      onPressed: isFormValid && !value.isLoading
+                          ? () async {
+                              if (_formKey.currentState!.validate()) {
+                                final model = SignUpModel(
+                                  fullName: nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                await value.register(model);
+            
+                                if (value.success) {
+                                  context.push("/login-account-page");
+                                } else if (value.error != null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(value.error!)),
+                                  );
+                                }
+                              }
+                            }
+                          : null,
+            
+                      textColor: AppColors.white,
+                      borderColor: isFormValid ? null : AppColors.black,
+                    );
+                  },
+                ),
+            
+                SizedBox(
+                  height: 24.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 2.h,
+                      width: 154.w,
+                      decoration: BoxDecoration(color: AppColors.border),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Text(
+                      "Or",
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "GeneralSans",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Container(
+                      height: 2.h,
+                      width: 154.w,
+                      decoration: BoxDecoration(color: AppColors.border),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+                ReusableTextButton(
+                  text: "Sign Up With Google",
+                  background: Colors.white,
+                  onPressed: () {},
+                  textColor: AppColors.black,
+                  leftIcon: "assets/google.svg",
+                  borderColor: AppColors.border,
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                ReusableTextButton(
+                  text: "Sign Up With Facebook",
+                  background: AppColors.blue,
+                  onPressed: () {},
+                  textColor: Colors.white,
+                  leftIcon: "assets/logos_facebook.svg",
+                ),
+                SizedBox(
+                  height: 48.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        color: AppColors.grey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "GeneralSans",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.push("/login-account-page");
+                      },
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontFamily: "GeneralSans",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

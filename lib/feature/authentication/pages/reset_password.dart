@@ -26,7 +26,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         leading: Align(
           alignment: Alignment.topRight,
           child: GestureDetector(
-            onTap: (){context.push("/enter-code-page");},
+            onTap: (){context.pop();},
               child: SvgPicture.asset("assets/back_arrow.svg")),
         ),
         leadingWidth: 40,

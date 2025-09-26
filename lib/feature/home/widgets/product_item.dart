@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_2/core/utils/app_colors.dart';
-import 'package:project_2/feature/home/managers/product_cubit.dart';
+import 'package:project_2/feature/home/managers/product_bloc.dart';
 
 class ProductItem extends StatelessWidget {
   final int id;

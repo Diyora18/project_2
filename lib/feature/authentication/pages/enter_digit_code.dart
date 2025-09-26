@@ -25,7 +25,7 @@ class EnterCodePage extends StatelessWidget {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
-                  context.push("/forgot-password-page");
+                  context.pop();
                 },
                 child: SvgPicture.asset("assets/back_arrow.svg"),
               ),
