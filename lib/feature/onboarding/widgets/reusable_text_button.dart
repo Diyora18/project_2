@@ -32,7 +32,7 @@ class ReusableTextButton extends StatelessWidget {
               ? BorderSide(color: borderColor!, width: 2)
               : BorderSide.none,
           backgroundColor: background,
-          fixedSize: Size(341.w, 44.h),
+          fixedSize: Size(341.w, 54.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

@@ -11,7 +11,7 @@ class ApiClient {
   ApiClient({required this.interceptor}) {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.9.96:8888/api/v1",
+        baseUrl: "http://192.168.8.139:8888/api/v1",
         validateStatus: (status) => true,
       ),
     )..interceptors.add(interceptor);
@@ -57,4 +57,25 @@ class ApiClient {
       return Result.error(e);
     }
   }
+
+  Future<Result> delete(
+      String path, {
+        Map<String, dynamic>? data,
+      }) async {
+    try {
+      var response = await _dio.delete(
+        path,
+        data: data,
+      );
+
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return Result.ok(response.data);
+      } else {
+        return Result.error(Exception(response.data));
+      }
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
 }

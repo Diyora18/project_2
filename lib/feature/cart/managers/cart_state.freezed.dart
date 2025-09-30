@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CartState {
 
- String? get errorMessage; bool get isLoading; CartModel get cart; List<CartModel> get items;
+ String? get errorMessage; bool get isLoading; CartModel? get cart;
 /// Create a copy of CartState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CartStateCopyWith<CartState> get copyWith => _$CartStateCopyWithImpl<CartState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.cart, cart) || other.cart == cart)&&const DeepCollectionEquality().equals(other.items, items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CartState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.cart, cart) || other.cart == cart));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorMessage,isLoading,cart,const DeepCollectionEquality().hash(items));
+int get hashCode => Object.hash(runtimeType,errorMessage,isLoading,cart);
 
 @override
 String toString() {
-  return 'CartState(errorMessage: $errorMessage, isLoading: $isLoading, cart: $cart, items: $items)';
+  return 'CartState(errorMessage: $errorMessage, isLoading: $isLoading, cart: $cart)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CartStateCopyWith<$Res>  {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) _then) = _$CartStateCopyWithImpl;
 @useResult
 $Res call({
- String? errorMessage, bool isLoading, CartModel cart, List<CartModel> items
+ String? errorMessage, bool isLoading, CartModel? cart
 });
 
 
@@ -62,13 +62,12 @@ class _$CartStateCopyWithImpl<$Res>
 
 /// Create a copy of CartState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? errorMessage = freezed,Object? isLoading = null,Object? cart = null,Object? items = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? errorMessage = freezed,Object? isLoading = null,Object? cart = freezed,}) {
   return _then(_self.copyWith(
 errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,cart: null == cart ? _self.cart : cart // ignore: cast_nullable_to_non_nullable
-as CartModel,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
-as List<CartModel>,
+as bool,cart: freezed == cart ? _self.cart : cart // ignore: cast_nullable_to_non_nullable
+as CartModel?,
   ));
 }
 
@@ -153,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? errorMessage,  bool isLoading,  CartModel cart,  List<CartModel> items)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? errorMessage,  bool isLoading,  CartModel? cart)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CartState() when $default != null:
-return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case _:
+return $default(_that.errorMessage,_that.isLoading,_that.cart);case _:
   return orElse();
 
 }
@@ -174,10 +173,10 @@ return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? errorMessage,  bool isLoading,  CartModel cart,  List<CartModel> items)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? errorMessage,  bool isLoading,  CartModel? cart)  $default,) {final _that = this;
 switch (_that) {
 case _CartState():
-return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case _:
+return $default(_that.errorMessage,_that.isLoading,_that.cart);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +193,10 @@ return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? errorMessage,  bool isLoading,  CartModel cart,  List<CartModel> items)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? errorMessage,  bool isLoading,  CartModel? cart)?  $default,) {final _that = this;
 switch (_that) {
 case _CartState() when $default != null:
-return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case _:
+return $default(_that.errorMessage,_that.isLoading,_that.cart);case _:
   return null;
 
 }
@@ -209,19 +208,12 @@ return $default(_that.errorMessage,_that.isLoading,_that.cart,_that.items);case 
 
 
 class _CartState implements CartState {
-  const _CartState({this.errorMessage, required this.isLoading, required this.cart, required final  List<CartModel> items}): _items = items;
+  const _CartState({this.errorMessage, required this.isLoading, this.cart});
   
 
 @override final  String? errorMessage;
 @override final  bool isLoading;
-@override final  CartModel cart;
- final  List<CartModel> _items;
-@override List<CartModel> get items {
-  if (_items is EqualUnmodifiableListView) return _items;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_items);
-}
-
+@override final  CartModel? cart;
 
 /// Create a copy of CartState
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +225,16 @@ _$CartStateCopyWith<_CartState> get copyWith => __$CartStateCopyWithImpl<_CartSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.cart, cart) || other.cart == cart)&&const DeepCollectionEquality().equals(other._items, _items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CartState&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.cart, cart) || other.cart == cart));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorMessage,isLoading,cart,const DeepCollectionEquality().hash(_items));
+int get hashCode => Object.hash(runtimeType,errorMessage,isLoading,cart);
 
 @override
 String toString() {
-  return 'CartState(errorMessage: $errorMessage, isLoading: $isLoading, cart: $cart, items: $items)';
+  return 'CartState(errorMessage: $errorMessage, isLoading: $isLoading, cart: $cart)';
 }
 
 
@@ -253,7 +245,7 @@ abstract mixin class _$CartStateCopyWith<$Res> implements $CartStateCopyWith<$Re
   factory _$CartStateCopyWith(_CartState value, $Res Function(_CartState) _then) = __$CartStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? errorMessage, bool isLoading, CartModel cart, List<CartModel> items
+ String? errorMessage, bool isLoading, CartModel? cart
 });
 
 
@@ -270,13 +262,12 @@ class __$CartStateCopyWithImpl<$Res>
 
 /// Create a copy of CartState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? errorMessage = freezed,Object? isLoading = null,Object? cart = null,Object? items = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? errorMessage = freezed,Object? isLoading = null,Object? cart = freezed,}) {
   return _then(_CartState(
 errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,cart: null == cart ? _self.cart : cart // ignore: cast_nullable_to_non_nullable
-as CartModel,items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
-as List<CartModel>,
+as bool,cart: freezed == cart ? _self.cart : cart // ignore: cast_nullable_to_non_nullable
+as CartModel?,
   ));
 }
 

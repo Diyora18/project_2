@@ -20,6 +20,8 @@ import 'core/routing/router.dart';
 import 'data/repositories/auth_repository.dart';
 import 'data/repositories/password_repository.dart';
 import 'feature/authentication/managers/forgot_password_viewmodel.dart';
+import 'feature/cart/managers/cart_bloc.dart';
+import 'feature/cart/managers/cart_event.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -90,6 +92,7 @@ class StoreApp extends StatelessWidget {
                 resetRepo: context.read<PasswordRepository>(),
               ),
             ),
+
           ],
           child: Builder(
             builder: (context) {
@@ -105,6 +108,12 @@ class StoreApp extends StatelessWidget {
                         CategoryCubit(categoryRepo: context.read())
                           ..fetchCategories(),
                   ),
+                  BlocProvider(
+                    create: (context) => CartBloc(
+                      repository: context.read<CartRepository>(),
+                    )..add(LoadingCart()),
+                  ),
+
                 ],
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
