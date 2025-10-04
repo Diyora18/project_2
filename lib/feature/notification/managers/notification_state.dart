@@ -1,3 +1,5 @@
+
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/models/notification_model.dart';

@@ -3,14 +3,19 @@ import 'package:project_2/feature/authentication/pages/enter_digit_code.dart';
 import 'package:project_2/feature/authentication/pages/forgot_password.dart';
 import 'package:project_2/feature/authentication/pages/login_account.dart';
 import 'package:project_2/feature/authentication/pages/reset_password.dart';
-import 'package:project_2/feature/account_page/pages/account_page.dart';
+import 'package:project_2/feature/account/pages/account_page.dart';
 import 'package:project_2/feature/cart/pages/cart_page.dart';
+import 'package:project_2/feature/cart/pages/checkout_page.dart';
 import 'package:project_2/feature/details/pages/detail_page.dart';
+import 'package:project_2/feature/account/pages/help_center.dart';
 import 'package:project_2/feature/home/pages/home_page.dart';
+import 'package:project_2/feature/my_detail/pages/user.dart';
 import 'package:project_2/feature/notification/pages/notification_account.dart';
 import 'package:project_2/feature/notification/pages/notification_page.dart';
 import 'package:project_2/feature/onboarding/page/splash_page.dart';
 import 'package:project_2/feature/onboarding/page/onboarding_page.dart';
+import 'package:project_2/feature/payment_method/pages/new_card.dart';
+import 'package:project_2/feature/payment_method/pages/payment_page.dart';
 
 import '../../feature/authentication/pages/create_account.dart';
 import '../../feature/saved/pages/saved_page.dart';
@@ -81,6 +86,30 @@ final router = GoRouter(
     GoRoute(
       path: "/notification-account",
       builder: (context, state) => NotificationAccount(),
+    ),
+    GoRoute(
+      path: "/checkout-page",
+      builder: (context, state) => CheckoutPage(),
+    ),
+    GoRoute(
+      path: "/payment-method",
+      builder: (context, state) => PaymentPage(),
+    ),
+    GoRoute(
+      path: "/help-center-page",
+      builder: (context, state) => HelpCenterPage(),
+    ),
+    GoRoute(
+      path: "/new-card-page",
+      builder: (context, state) => NewCardPage(),
+    ),
+    GoRoute(
+      path: "/payment-page",
+      builder: (context, state) => PaymentPage(),
+    ),
+    GoRoute(
+      path: "/user-page",
+      builder: (context, state) => UserPage(),
     ),
   ],
 );

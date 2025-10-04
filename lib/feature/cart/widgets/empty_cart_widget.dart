@@ -4,22 +4,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/utils/app_colors.dart';
 
-class NoSavedWidgets extends StatelessWidget {
-  const NoSavedWidgets({super.key});
+class EmptyCartWidget extends StatelessWidget {
+  const EmptyCartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset('assets/Heart-duotone.svg'),
+        SvgPicture.asset('assets/Cart-duotone.svg'),
 
         SizedBox(
           height: 24,
         ),
 
         Text(
-          "No Saved Items!",
+          "Your Cart Is Empty!",
           style: TextStyle(
             color: AppColors.black,
             fontSize: 20.sp,
@@ -32,7 +32,7 @@ class NoSavedWidgets extends StatelessWidget {
         ),
         Text(
           textAlign: TextAlign.center,
-          "You don’t have any saved items.\n Go to home and add some.",
+          "When you add products, they’ll\nappear here.",
           style: TextStyle(
             color: AppColors.grey,
             fontSize: 16.sp,

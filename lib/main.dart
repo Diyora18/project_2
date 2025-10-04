@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:project_2/data/repositories/card_repository.dart';
 import 'package:project_2/data/repositories/cart_repository.dart';
 import 'package:project_2/data/repositories/category_repository.dart';
 import 'package:project_2/data/repositories/detail_repository.dart';
@@ -13,12 +14,15 @@ import 'package:project_2/data/repositories/review_repository.dart';
 import 'package:project_2/feature/home/managers/category_cubit.dart';
 import 'package:project_2/feature/home/managers/product_bloc.dart';
 import 'package:project_2/feature/home/managers/product_event.dart';
+import 'package:project_2/feature/my_detail/managers/user_bloc.dart';
+import 'package:project_2/feature/payment_method/managers/new_card_bloc.dart';
 import 'package:provider/provider.dart';
 import 'core/client/client.dart';
 import 'core/interceptor/interceptor.dart';
 import 'core/routing/router.dart';
 import 'data/repositories/auth_repository.dart';
 import 'data/repositories/password_repository.dart';
+import 'data/repositories/user_repository.dart';
 import 'feature/authentication/managers/forgot_password_viewmodel.dart';
 import 'feature/cart/managers/cart_bloc.dart';
 import 'feature/cart/managers/cart_event.dart';
@@ -86,13 +90,18 @@ class StoreApp extends StatelessWidget {
             Provider(
               create: (context) => CartRepository(apiClient: context.read()),
             ),
+            Provider(
+              create: (context) => CardRepository(apiClient: context.read()),
+            ),
+            Provider(
+              create: (context) => UserRepository(apiClient: context.read()),
+            ),
 
             ChangeNotifierProvider<AuthViewModel>(
               create: (context) => AuthViewModel(
                 resetRepo: context.read<PasswordRepository>(),
               ),
             ),
-
           ],
           child: Builder(
             builder: (context) {
@@ -113,7 +122,16 @@ class StoreApp extends StatelessWidget {
                       repository: context.read<CartRepository>(),
                     )..add(LoadingCart()),
                   ),
-
+                  BlocProvider(
+                    create: (context) => CardBloc(
+                      cardRepository: context.read<CardRepository>(),
+                    ),
+                  ),
+                  BlocProvider(
+                    create: (context) => UserBloc(
+                      userRepository: context.read<UserRepository>(),
+                    ),
+                  ),
                 ],
                 child: MaterialApp.router(
                   debugShowCheckedModeBanner: false,
